@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7. CVIČENÍ LA1</title>
+    <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+    <link rel="stylesheet" href="public/quiz_style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+  <main id="game-container">
+    <section id="scene-intro" class="scene active">
+      <h1>Knihovna zapomenutého vědění</h1>
+      <p>
+        Vítej, poutníku. Slyšel jsem, že jsi sem dorazil, aby ses dozvěděl o tom, 
+        co je to vektorový prostor, podprostor a lineární obal. Opravdu, je to tak? 
+        Lineární algebra je obskurní umění již dávno zapomenuté po příchodu velké 
+        <a href="https://www.bbc.com/news/articles/cqy4z9pv4w0po" target="_blank" rel="noopener">superinteligence</a>. 
+        Ale možná někde najdu staré svitky, které by ti to mohly objasnit. Pojď se mnou dál 
+        do matematické knihovny, snad to spolu zjistíme.
+      </p>
+      <div class="actions">
+        <button onclick="goToScene('scene-scroll-1')">Jasně, jdeme.</button>
+        <button onclick="goToScene('scene-give-up')">Tohle není nic pro mě, dědo.</button>
+      </div>
+    </section>
+
+
+    <section id="scene-give-up" class="scene">
+      <h2>Utekl jsi...</h2>
+      <p>Starý knihovník jen smutně pokroutil hlavou. "Škoda, škoda. Další, kterého strach z jiných dimenzí svedl na scestí bezmyšlenkovitosti."</p>
+      <div class="actions">
+        <button onclick="goToScene('scene-intro')">Zkusit to znovu</button>
+      </div>
+    </section>
+
+    <section id="scene-scroll-1" class="scene"
+             data-feedback-correct="Správně! Nejde o vektorový prostor, protože operace $\circ$ není asociativní: $\alpha \circ (\beta \circ v) = \alpha \circ (-\beta v) = -\alpha (-\beta v) = \alpha \beta v \neq -\alpha \beta v = (\alpha\beta) \circ v$."
+             data-feedback-wrong="Vedle! Zamysli se ještě jednou a zkus prozkoumat všechny axiomy vektorového prostoru (zejména asociativitu násobení skalárem).">
+      <h2>První svitek: Úvod do magie vektorových prostorů</h2>
+      <p>
+        Knihovník oprašuje těžký svitek. "Abys vstoupil do hlubších komnat podprostorů, musíš nejdřív poznat prostor. 
+        Pamatuj: Získáš-li těleso $\mathbb{T}$, můžeš nad ním jako svůj dům postavit vektorový prostor $(V,+,\cdot)$."
+      </p>
+      <p>
+        To jsou mi věci. Dál tady stojí: "Pozor, vektorový prostor není každý prostor. Je to jen ten, pro který platí pět postulátů mystika Hermanna Grassmanna."
+      </p>
+      <ul>
+        <li>"$(V, +)$ je Abelova grupa, neutrální prvek značíme $o$ a inverzní k $v$ pak $-v$,"</li>
+        <li>"$\alpha(\beta v) = (\alpha \beta)v$, takříkajíc asociativita,"</li>
+        <li>"$1v = v,$"</li>
+        <li>"$(\alpha + \beta)v = \alpha v + \beta v$"</li>
+        <li>"$\alpha (u + v) = \alpha u + \alpha v$"</li>
+      </ul>
+      <p>
+        Tyto postuláty platí pro každé $\alpha,\beta$ vzniknuvší z $\mathbb{T}$ a pro každé $u,v$ zrozené z $V$. Vektorový prostor připodobňuje se v řeči selské něčemu jako je těleso, ale s množinou vektorů postavenou nad ním.
+      </p>
+      
+      <div class="quiz-box">
+        <p><strong>Úkol od knihovníka:</strong> Urči, zda tvoří vektorový prostor trojice $(\mathbb{R}^n, \oplus, \circ)$ nad $\mathbb{R}$, kde $x \oplus y = x + y$, $\alpha \circ x = -\alpha \cdot x$.</p>
+        <div class="actions">
+          <button onclick="checkAnswer(true, 'scene-scroll-2', false)">Je to vektorový prostor</button>
+          <button onclick="checkAnswer(false, 'scene-scroll-2', false)">Není to vektorový prostor</button>
+        </div>
+        <p class="feedback"></p>
+      </div>
+    </section>
+
+    <section id="scene-scroll-2" class="scene"
+             data-feedback-correct="Přesně tak! Množina není podprostorem, neboť nulový vektor $(0, 0)^T$ není její součástí (první složka $s+t$ by musela dát 0, ale druhá složka je pevně 1)."
+             data-feedback-wrong="Pozor na to! Projdi si ještě jednou obsah druhého svitku a zkontroluj, zda množina obsahuje nulový vektor $(0,0)^T$.">
+      <h2>Druhý svitek: Součást části. Podprostor prostoru</h2>
+      <p>
+        Knihovník se spokojeně usmívá. "Mnoho učedníků už mi prošlo pod rukama, ale zdá se, že ty možná skutečně máš to, co je potřeba ke studiu umění matematicko-fyzikálních."
+      </p>
+      <p>
+        Ve druhém svitku stojí: "Oficium stolce mágů tvrdí: $U \subseteq V$ je podprostorem prostoru $V$, pokud tvoří vektorový prostor nad $\mathbb{T}$ se stejně definovanými operacemi. Pro použití praktikujících je však užitečnější druhá definice zapsaná níže v nekronomikonech: Pokud $U \subseteq V$, kde $V$ jest prostorem,
+        tak je $U$ podprostor, pokud obsahuje nulový vektor $o$ a je uzavřený na sčítání a násobení skalárem. To jest, nelze ho opustit standardními formulemi."
+      </p>
+      <div class="quiz-box">
+        <p><strong>Úkol od knihovníka:</strong> Tvoří množina vektorů $\{ (s + t, 1)^T \mid s, t \in \mathbb{R} \}$ podprostor $\mathbb{R}^2$?</p>
+        <div class="actions">
+          <button onclick="checkAnswer(true, 'scene-scroll-3', false)">Ano, je to podprostor</button>
+          <button onclick="checkAnswer(false, 'scene-scroll-3', false)">Ne, není</button>
+        </div>
+        <p class="feedback"></p>
+      </div>
+    </section>
+
+    <section id="scene-scroll-3" class="scene"
+             data-feedback-correct="Skvěle! Pro $(1,0)^T$ stačí vzít kombinaci $-2(1,2)^T + 1(3,4)^T$ a pro $(0,1)^T$ násobky $\frac{3}{2}(1,2)^T - \frac{1}{2}(3,4)^T$. Tyto dva vektory generují celé $\mathbb{R}^2$!"
+             data-feedback-wrong="Bohužel. Zadané vektory jsou lineárně nezávislé, takže jejich span tvoří celé $\mathbb{R}^2$. Zkus najít koeficienty lineární kombinace znovu!">
+      <h2>Třetí svitek: Lineární obalení</h2>
+      <p>
+        Knihovník pokyvuje hlavou. "Konečně vstupujeme do tajů lineárního obalu, kterému lid za průlivem La Manche a za Atlantským oceánem říká span." Poté nahmatá v poličce třetí svitek a čte.
+      </p>
+      <p>
+        "Lineární kombinací pro vektory $v_1,v_2,\dots, v_n$ rozumíme vektor $\sum \alpha_i v_i$, kde $\alpha_1, \alpha_2, \dots, \alpha_n \in \mathbb{R}$. Lineární obal množiny vektorů $\mathrm{span}(v_1, \dots, v_n)$ je pak množina všech lineárních kombinací těchto vektorů."
+      </p>
+      <div class="quiz-box">
+        <p><strong>Úkol od knihovníka:</strong> Rozhodněte, zda platí, že vektory $(1, 0)^T$ a $(0, 1)^T$ leží ve $\mathrm{span}((1,2)^T,(3,4)^T)$.</p>
+        <div class="actions">
+          <button onclick="checkAnswer(true, 'scene-scroll-4', true)">Ano, leží tam</button>
+          <button onclick="checkAnswer(false, 'scene-scroll-4', true)">Ne, neleží</button>
+        </div>
+        <p class="feedback"></p>
+      </div>
+    </section>
+
+    <section id="scene-scroll-4" class="scene"
+             data-feedback-correct="Skvěle! Prošel jsi kompletní závěrečnou zkouškou bez jediného zaváhání! Bytost se s hukotem rozpadla zpět do čtyř rozměrů."
+             data-feedback-wrong="Některé odpovědi nebyly správně. Strážce vědění zavrtěl svou 4D hlavou. Zkontroluj si úvahy a zkus to znovu!">
+      <h2>Čtvrtý svitek: Finální zkouška znalostí</h2>
+      <p>
+        Knihovník se klaní a s potěšením pronáší: "Vidíš, poutníku. Trpělivost se vyplácí a ty jsi teď ovládl..."
+      </p>
+      <p>
+        V tu chvíli se však ozve velká rána a zpoza všech svitků v knihovně vytryskne modré světlo. Po chvíli se zformuje do jakési bytosti, která připomíná projekci čtyřrozměrného objektu do tří dimenzí. Knihovnou se rozezní hlas:
+      </p>
+      <p>
+        "Tak ty, smrtelníku, chceš nahlédnout do tajů lineární algebry? Já přicházím z vektorového prostoru, který zdaleka přesahuje tvé chápání. Vládnu silou determinantů, algeber, vlastních čísel a tenzorů. Jsem strážce tajného vědění a nenechám projít nikoho, kdo si to nezaslouží. Dám ti nyní 3 otázky a na všechny musíš odpovědět správně naráz. Pokud to nezvládneš, bude s tebou konec."
+      </p>
+
+      <div class="multi-quiz-box">
+        <div class="quiz-item" data-correct="true">
+          <p><strong>1. Otázka:</strong> Tvoří $\mathbb{R}^n$ nad $\mathbb{Q}$ vektorový prostor, pokud je sčítání a násobení skalárem definováno standardně po složkách?</p>
+          <div class="actions answer-group">
+            <button type="button" onclick="selectOption(this, true)">Ano, tvoří</button>
+            <button type="button" onclick="selectOption(this, false)">Ne, netvoří</button>
+          </div>
+        </div>
+
+        <div class="quiz-item" data-correct="true">
+          <p><strong>2. Otázka:</strong> Tvoří množina vektorů $\{ (s - t, 2t)^T \mid s, t \in \mathbb{R} \}$ podprostor $\mathbb{R}^2$?</p>
+          <div class="actions answer-group">
+            <button type="button" onclick="selectOption(this, true)">Ano, tvoří</button>
+            <button type="button" onclick="selectOption(this, false)">Ne, netvoří</button>
+          </div>
+        </div>
+
+        <div class="quiz-item" data-correct="true">
+          <p><strong>3. Otázka:</strong> Nechť $V$ je vektorový prostor a $M \subseteq V$. Platí vždy vztah $\mathrm{span}(\mathrm{span}(M)) = \mathrm{span}(M)$?</p>
+          <div class="actions answer-group">
+            <button type="button" onclick="selectOption(this, true)">Ano, platí vždy</button>
+            <button type="button" onclick="selectOption(this, false)">Ne, neplatí obecně</button>
+          </div>
+        </div>
+
+        <div class="actions submit-box">
+          <button onclick="checkMultiAnswer('scene-end')">Odevzdat finální odpovědi</button>
+        </div>
+        <p class="feedback"></p>
+      </div>
+    </section>
+
+    <section id="scene-end" class="scene">
+      <div class="end-card">
+        <span class="badge">Cvičení dokončeno</span>
+        <p>
+          Starý knihovník se hluboce poklonil. "Dokázal jsi to, mladý adepte. Znalosti lineární algebry žijí dál."
+        </p>
+
+        <div class="teacher-note">
+          <h3>Slovo cvičícího</h3>
+          <p>
+            Díky za proklikání náhradního cvičení! Je mi líto, že jsme se nemohli sejít fyzicky, ale tak snad Vám to i takhle něco dalo.
+          </p>
+          <p>
+            Jinak důrazně doporučuji se podívat i na další příklady ze sbírky profesora Hladíka k vektorovým prostorům. 
+            Jsou tam pojmy, které se do tohoto kvízu bohužel nevešly, tak by bylo super, kdybyste se podívali do skript a zkusili po nich zapátrat sami. 
+            Pokud by Vám ale nebylo cokoliv jasné nebo jste narazili na nejasnost v příkladech, určitě se ozvěte. 
+          </p>
+          <p>
+            Připomínám, že za dva týdny budeme psát písemku na 60 minut, kde budou tři příklady s tématy: 
+          </p>
+          <ul>
+            <li>Soustavy lineárních rovnic, Gaussova eliminace</li>
+            <li>Operace s maticemi, vlastnosti matic, regulární a inverzní matice</li>
+            <li>Konečná tělesa $\mathbb{Z}_p$ (případně mírné základy teorie grup)</li>
+          </ul>
+        </div>
+
+        <div class="actions">
+          <button onclick="goToScene('scene-intro')">Hrát znovu od začátku</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script src="public/game.js"></script>
+</body>
+</html>

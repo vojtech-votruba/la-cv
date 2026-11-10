@@ -1,0 +1,206 @@
+body {
+  font-family: 'Libre Baskerville', 'Georgia', serif;
+  background-color: #1a1815;
+  color: #e0d8c3;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-family: 'Libre Baskerville', 'Georgia', serif;
+}
+
+#game-container {
+  width: 100%;
+  max-width: 700px;
+  background: #2b2621;
+  border: 1px solid #5c4a35;
+  padding: 35px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  
+  text-align: center;
+}
+
+.scene {
+  display: none;
+}
+
+.scene.active {
+  display: block;
+}
+
+h1, h2 {
+  color: #d4a359;
+  border-bottom: 1px solid #5c4a35;
+  padding-bottom: 12px;
+  margin-top: 0;
+}
+
+p {
+  line-height: 1.6;
+  text-align: justify; 
+}
+
+a {
+  color: #d4a359;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+button {
+  background: #4a3b2c;
+  color: #e0d8c3;
+  border: 1px solid #d4a359;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #d4a359;
+  color: #1a1815;
+}
+
+.quiz-box {
+  background: #201c18;
+  padding: 20px;
+  border: 1px solid #5c4a35;
+  border-left: 4px solid #d4a359;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.quiz-box p {
+  text-align: center;
+}
+
+.feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+  text-align: center;
+}
+
+.end-card {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: #d4a359;
+  color: #1a1815;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.teacher-note {
+  background: #201c18;
+  border: 1px solid #5c4a35;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 25px 0;
+  text-align: left;
+}
+
+.teacher-note h3 {
+  color: #d4a359;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  border-bottom: 1px dashed #5c4a35;
+  padding-bottom: 5px;
+}
+
+.teacher-note p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.multi-quiz-box {
+  background: #201c18;
+  padding: 20px;
+  border: 1px solid #5c4a35;
+  border-left: 4px solid #d4a359;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.quiz-item {
+  border-bottom: 1px dashed #5c4a35;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.quiz-item:last-of-type {
+  border-bottom: none;
+}
+
+.submit-box {
+  margin-top: 25px;
+}
+
+button.selected {
+  background: #d4a359;
+  color: #1a1815;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(212, 163, 89, 0.5);
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px 0;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px; 
+  }
+
+  #game-container {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem; 
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions button {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+  }
+
+  .quiz-box, .multi-quiz-box, .teacher-note {
+    padding: 12px;
+  }
+}
